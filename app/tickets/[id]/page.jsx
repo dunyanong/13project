@@ -1,9 +1,28 @@
+import { notFound } from "next/navigation"
+
+export const dynamicParams = true // default val = true
+
+export async function generateStaticParams() {
+    const res = await fetch(`https://dummyjson.com/products`)
+
+    const products = await res.json();
+
+    return products.products.map((product) => ({
+        id: product.id.toString()
+      }))
+    
+}
+
 async function getTicket(id) {
     const res = await fetch(`https://dummyjson.com/products/${id}`, {
       next: {
         revalidate: 60
       }
     })
+
+    if (!res.ok) {
+        notFound()
+      }
   
     return res.json()
 }
