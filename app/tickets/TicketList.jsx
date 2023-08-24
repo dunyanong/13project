@@ -1,6 +1,9 @@
 import Link from "next/link"
 
 async function getTickets() {
+  // simulating to collecting data
+  await new Promise(resolve => setTimeout(resolve, 3000));
+
   const res = await fetch('https://dummyjson.com/products', {
     next: {
       revalidate: 30
