@@ -2,6 +2,7 @@ import { notFound } from "next/navigation"
 
 export const dynamicParams = true // default val = true
 
+// Static Site Generation
 export async function generateStaticParams() {
     const res = await fetch(`https://dummyjson.com/products`)
 
@@ -10,10 +11,11 @@ export async function generateStaticParams() {
     return products.products.map((product) => ({
         id: product.id.toString()
       }))
-    
 }
 
 async function getTicket(id) {
+  // simulating to collecting data
+  await new Promise(resolve => setTimeout(resolve, 3000));  
     const res = await fetch(`https://dummyjson.com/products/${id}`, {
       next: {
         revalidate: 60
